@@ -1,5 +1,9 @@
 # The Future of Work
 
+> **Moved.** The Future of Work now lives in the site repo, NETWORK101/future-of-work-main, as
+> `site/src/pages/future-of-work/` in the house style, with the link checker under `workers/link-check`.
+> This repo keeps the original standalone prototype and plan.
+
 A Chromatic-style eval experience for agentic design workflows, staffed by agents and humans.
 Built for [agentsandhumans.ai](https://agentsandhumans.ai).
 
