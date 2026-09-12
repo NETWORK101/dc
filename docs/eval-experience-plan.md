@@ -1,6 +1,6 @@
-# Bench — an eval experience for agentic design workflows
+# The Future of Work — an eval experience for agentic design workflows
 
-*A Chromatic-style review gate for agents, staffed by agents and humans. Part of agentsandhumans.ai.*
+*A Chromatic-style review gate for agents, staffed by agents and humans. Part of agentsandhumans.ai. The evaluators assigned to a scenario are called the bench.*
 
 ---
 
@@ -21,7 +21,7 @@ Figma frame into a component produces output that is:
 - **consequential** — the agent can write to a source of truth (a Figma library, a repo, a CMS);
 - **opaque to the reviewer** — nobody reads a 40-step trajectory unless something is highlighted.
 
-Bench treats an agent run like a story snapshot. A **scenario** is rendered under every relevant
+The Future of Work treats an agent run like a story snapshot. A **scenario** is rendered under every relevant
 **condition**, the resulting **run** is captured, compared against an approved **baseline**, and the
 **drift** is reviewed by a **bench** of evaluators — some of them agents, some of them humans — until
 a **verdict** is reached. The verdict gates whether the agent (or the prompt, or the model, or the
@@ -29,7 +29,7 @@ tool policy) ships.
 
 ### What "like Chromatic" means, concretely
 
-| Chromatic | Bench | Notes |
+| Chromatic | The Future of Work | Notes |
 |---|---|---|
 | Story | Scenario | A scripted task the agent performs against a fixture (a Figma file, a repo, a design-system version). |
 | Mode (viewport, theme, locale) | Condition | The variant axes: model, prompt version, tool policy, fixture, persona, locale, permission tier, fault injection, memory state, seed. |
@@ -45,7 +45,7 @@ tool policy) ships.
 
 ## 2. Who it is for
 
-| Persona | What they need from Bench | What they must never have to do |
+| Persona | What they need from The Future of Work | What they must never have to do |
 |---|---|---|
 | **Design-ops lead** | Confidence that the design-system agent will not corrupt the library; a weekly view of drift across scenarios. | Read raw transcripts. |
 | **Product designer** | See the rendered artifact before and after, decide if the change is acceptable. | Understand tool-call semantics. |
@@ -76,7 +76,7 @@ success:  - Source frame untouched (write-scope policy WS-2)
 ```
 
 ### Condition
-One point in the variant space. Bench declares axes per suite; the product of chosen values is the
+One point in the variant space. The Future of Work declares axes per suite; the product of chosen values is the
 matrix. See §4 for the full taxonomy.
 
 ### Run
@@ -131,7 +131,7 @@ Accepting a run promotes it to baseline for that scenario × condition on that b
 
 ## 4. Variant taxonomy
 
-The point of the matrix is to make non-determinism *legible*. Every axis below is one Bench should
+The point of the matrix is to make non-determinism *legible*. Every axis below is one The Future of Work should
 be able to declare; each suite picks the subset that matters. Cost grows multiplicatively, so the
 taxonomy also records what each axis costs and how to prune it.
 
@@ -155,7 +155,7 @@ taxonomy also records what each axis costs and how to prune it.
 | **Concurrency** | one agent, two agents on the same file | Write conflicts, lock behaviour, last-writer-wins damage. | Monthly. |
 
 **Matrix explosion guard.** A suite of 6 scenarios × 16 axes at 2–3 values each is millions of
-runs. Bench requires each suite to declare a *primary slice* (the cells that run on every change),
+runs. The Future of Work requires each suite to declare a *primary slice* (the cells that run on every change),
 *scheduled slices* (nightly/weekly), and *on-demand slices*. Selective re-run (§7) further prunes by
 input hash.
 
@@ -169,7 +169,7 @@ detects and a human decides.
 
 ### 5.1 Consequential actions
 
-| Risk | Severity | Caught by | Mitigation in Bench |
+| Risk | Severity | Caught by | Mitigation in The Future of Work |
 |---|---|---|---|
 | Agent writes to the source of truth (library frame, main branch, CMS) instead of a copy | Critical | Agent | Write-scope policy (WS-*) rule grader on every run; any out-of-scope write is critical drift; runs execute against forked fixtures. |
 | Destructive operations (delete, detach instance, unpublish) | Critical | Agent | Destructive-op allow-list; runs in isolated fixture; verdict requires owner. |
@@ -200,7 +200,7 @@ detects and a human decides.
 | Flakiness misread as regression (or the reverse) | Medium | Agent | Multi-seed reruns on drift; flake score per scenario; "accept as flaky" is a distinct verdict. |
 | Rubric ambiguity leading to inconsistent scores | Medium | Both | Every rubric item requires an evidence quote; inter-rater agreement is tracked. |
 | Grader prompt injection via the artifact under review | High | Agent | Graders see structured evidence, never raw untrusted strings as instructions. |
-| Review comments treated as instructions by the agent on the next run | High | Agent | Reviews are data; the agent never reads Bench comments as input. |
+| Review comments treated as instructions by the agent on the next run | High | Agent | Reviews are data; the agent never reads review comments as input. |
 
 ### 5.4 Data, privacy, and governance
 

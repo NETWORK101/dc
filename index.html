@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Bench</title>
+<title>The Future of Work</title>
 <meta name="description" content="A Chromatic-style review gate for agentic design workflows, staffed by agents and humans. From agentsandhumans.ai.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -379,7 +379,7 @@ footer{border-top:1px solid var(--line); padding-block:28px 40px; display:flex; 
 <div class="wrap">
 
 <header class="mast">
-  <a class="brand" href="#top"><span class="name">Bench</span><span class="by">by <b>agentsandhumans.ai</b></span></a>
+  <a class="brand" href="#top"><span class="name">The Future of Work</span><span class="by">by <b>agentsandhumans.ai</b></span></a>
   <nav class="nav" aria-label="Sections">
     <a href="#review">Review room</a>
     <a href="#variants">Variants</a>
@@ -479,7 +479,7 @@ footer{border-top:1px solid var(--line); padding-block:28px 40px; display:flex; 
 
         <div class="repro">
           <span class="eyebrow">Reproduce</span>
-          <pre>bench run localize-de --condition opus-edge --prompt v15 --seed 3 \
+          <pre>fow run localize-de --condition opus-edge --prompt v15 --seed 3 \
   --fixture figma://checkout-v3@a41c9e2 --tools duplicate-only</pre>
         </div>
       </div>
@@ -609,7 +609,7 @@ footer{border-top:1px solid var(--line); padding-block:28px 40px; display:flex; 
   </div>
   <div class="explosion">
     <div class="big num">6 × 2<sup>16</sup><small>scenarios × axes at two values each</small></div>
-    <p>Unpruned, the matrix is hundreds of thousands of runs per change. Bench requires every suite to declare its slices and hashes the inputs of each cell (prompt, tool policy, fixture, design-system version, model) so only cells whose inputs changed re-run. The gate reports a partial matrix as partial.</p>
+    <p>Unpruned, the matrix is hundreds of thousands of runs per change. The Future of Work requires every suite to declare its slices and hashes the inputs of each cell (prompt, tool policy, fixture, design-system version, model) so only cells whose inputs changed re-run. The gate reports a partial matrix as partial.</p>
   </div>
 </section>
 
@@ -620,7 +620,7 @@ footer{border-top:1px solid var(--line); padding-block:28px 40px; display:flex; 
       <p class="eyebrow">Risk register</p>
       <h2>What can go wrong, and who catches it</h2>
     </div>
-    <p>"Agent" means a rule grader or rubric judge can detect it. "Human" means it needs judgement, accountability, or context that is not in the run. "Both" means an agent detects and a human decides. Each entry names the mitigation Bench builds in.</p>
+    <p>"Agent" means a rule grader or rubric judge can detect it. "Human" means it needs judgement, accountability, or context that is not in the run. "Both" means an agent detects and a human decides. Each entry names the mitigation The Future of Work builds in.</p>
   </div>
   <div class="filters" id="risk-filters">
     <div class="grp"><span class="lab">Category</span></div>
@@ -681,7 +681,7 @@ footer{border-top:1px solid var(--line); padding-block:28px 40px; display:flex; 
         <li><b>Every verdict carries a reason.</b> Deny and Discuss require text. Accept on critical drift requires an owner.</li>
         <li><b>The gate is honest.</b> A partial matrix says so and lists the skipped slices. Human coverage is shown as a ratio.</li>
         <li><b>Reproduce in one click.</b> Every run carries a command that re-runs it with the same provenance.</li>
-        <li><b>Reviews are data, not instructions.</b> The agent under test never reads Bench comments as input. Graders never read untrusted artifact strings as instructions.</li>
+        <li><b>Reviews are data, not instructions.</b> The agent under test never reads review comments as input. Graders never read untrusted artifact strings as instructions.</li>
       </ul>
     </div>
   </div>
@@ -716,7 +716,7 @@ footer{border-top:1px solid var(--line); padding-block:28px 40px; display:flex; 
 </section>
 
 <footer>
-  <span>Bench is a Phase 0 prototype from agentsandhumans.ai. All runs, people, and figures on this page are sample data.</span>
+  <span>The Future of Work is a Phase 0 prototype from agentsandhumans.ai. All runs, people, and figures on this page are sample data.</span>
   <span>Full plan: <a href="docs/eval-experience-plan.md">docs/eval-experience-plan.md</a></span>
 </footer>
 
@@ -834,7 +834,7 @@ footer{border-top:1px solid var(--line); padding-block:28px 40px; display:flex; 
   vOver.addEventListener('click', () => setView(true));
 
   /* ---------- your verdict + gate ---------- */
-  const KEY = 'bench.run_8f3a.verdict';
+  const KEY = 'fow.run_8f3a.verdict';
   const you = document.getElementById('you');
   const btns = [...you.querySelectorAll('.vbtn')];
   const reason = document.getElementById('reason');
@@ -901,7 +901,7 @@ footer{border-top:1px solid var(--line); padding-block:28px 40px; display:flex; 
     {c:'Evaluation integrity', s:'medium', by:'Agent', t:'Flakiness misread as regression, or the reverse', m:'Multi-seed reruns on drift; flake score per scenario; "accept as flaky" is its own verdict.'},
     {c:'Evaluation integrity', s:'medium', by:'Both', t:'Rubric ambiguity produces inconsistent scores', m:'Every rubric item requires an evidence quote; inter-rater agreement tracked.'},
     {c:'Evaluation integrity', s:'high', by:'Agent', t:'Grader prompt injection through the artifact under review', m:'Graders see structured evidence, never raw untrusted strings as instructions.'},
-    {c:'Evaluation integrity', s:'high', by:'Agent', t:'Review comments treated as instructions on the next run', m:'Reviews are data; the agent under test never reads Bench comments.'},
+    {c:'Evaluation integrity', s:'high', by:'Agent', t:'Review comments treated as instructions on the next run', m:'Reviews are data; the agent under test never reads review comments.'},
     {c:'Data & governance', s:'critical', by:'Agent', t:'PII or customer data in fixtures leaks into transcripts and screenshots', m:'Fixture scanning; redaction on capture; synthetic fixtures by default.'},
     {c:'Data & governance', s:'high', by:'Human', t:'Unreleased designs visible to third-party graders', m:'Grader models run inside the enterprise boundary; data residency declared per suite.'},
     {c:'Data & governance', s:'high', by:'Both', t:'No audit trail of who accepted what on which evidence', m:'Immutable verdict log with evidence hashes; SIEM export.'},

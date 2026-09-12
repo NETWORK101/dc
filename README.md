@@ -1,4 +1,4 @@
-# Bench
+# The Future of Work
 
 A Chromatic-style eval experience for agentic design workflows, staffed by agents and humans.
 Built for [agentsandhumans.ai](https://agentsandhumans.ai).
@@ -28,5 +28,5 @@ verdict on the sample run, kept in `localStorage`.
 
 ## Vocabulary
 
-Scenario · Condition · Run · Baseline · Drift · Bench · Verdict · Gate. See the glossary at the end
-of the plan.
+Scenario · Condition · Run · Baseline · Drift · Bench (the evaluators assigned to a scenario) ·
+Verdict · Gate. See the glossary at the end of the plan.
