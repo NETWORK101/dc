@@ -11,7 +11,10 @@
     // Off-site links are checked with HEAD (GET fallback). Set to "false" to skip them.
     "CHECK_EXTERNALS": "true",
     // Paths that are never crawled (POST-only endpoints, feeds that expand forever).
-    "IGNORE": "/api/,/storybook/iframe.html"
+    "IGNORE": "/api/,/storybook/iframe.html",
+    // Hosts that answer 403 to every non-browser client. The "ask an assistant" links on each
+    // pattern page point here; they work for a person, so a 403 is not a breakage.
+    "ALLOW_403_HOSTS": "chatgpt.com,claude.ai"
   },
   "kv_namespaces": [
     { "binding": "STATE", "id": "REPLACE_WITH_KV_NAMESPACE_ID" }

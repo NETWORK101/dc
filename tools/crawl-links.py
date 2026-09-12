@@ -22,6 +22,7 @@ class Links(HTMLParser):
 
 ap = argparse.ArgumentParser(); ap.add_argument('base'); ap.add_argument('--out', default='link-report.json')
 ap.add_argument('--max', type=int, default=2000); ap.add_argument('--externals', action='store_true'); ap.add_argument('--delay', type=float, default=0.0)
+ap.add_argument('--allow-403', default='chatgpt.com,claude.ai', help='hosts whose 403 is a bot block, not a breakage')
 args = ap.parse_args()
 base = args.base.rstrip('/'); origin = urllib.parse.urlparse(base)
 opener = urllib.request.build_opener(urllib.request.HTTPRedirectHandler)
@@ -77,7 +78,9 @@ if args.externals:
     for e in sorted(externals):
         st, fin, ct, _ = fetch(e, 'HEAD')
         if st in (405, 403, 0): st, fin, ct, _ = fetch(e, 'GET')
-        ext_results[e] = {'status': st, 'final': fin if fin != e else None, 'broken': st >= 400 or st == 0}
+        host = urllib.parse.urlparse(e).hostname or ''
+        bot_blocked = st == 403 and any(host == a or host.endswith('.' + a) for a in args.allow_403.split(',') if a)
+        ext_results[e] = {'status': st, 'final': fin if fin != e else None, 'broken': (st >= 400 or st == 0) and not bot_blocked}
 
 broken = {u: v for u, v in seen.items() if v['broken']}
 report = {

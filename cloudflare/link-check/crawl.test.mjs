@@ -30,6 +30,8 @@ test('isBroken treats 4xx, 5xx, network errors, and a redirect to /404 as broken
   assert.equal(isBroken(404, 'https://agentsandhumans.ai/x'), true);
   assert.equal(isBroken(0, 'https://agentsandhumans.ai/x'), true);
   assert.equal(isBroken(200, 'https://agentsandhumans.ai/404'), true);
+  assert.equal(isBroken(403, 'https://chatgpt.com/?q=x', ['chatgpt.com', 'claude.ai']), false);
+  assert.equal(isBroken(403, 'https://www.forbes.com/x', ['chatgpt.com']), true);
 });
 
 test('renderMarkdown lists breakages', () => {

@@ -42,7 +42,10 @@ export function ignored(url, prefixes) {
 }
 
 /** Decide whether a fetched result counts as broken. An SSR site that redirects missing rows to /404 counts too. */
-export function isBroken(status, finalUrl) {
+export function isBroken(status, finalUrl, allow403Hosts = []) {
+  if (status === 403 && allow403Hosts.length) {
+    try { const h = new URL(finalUrl).hostname; if (allow403Hosts.some((a) => h === a || h.endsWith('.' + a))) return false; } catch {}
+  }
   if (status === 0 || status >= 400) return true;
   try { if (new URL(finalUrl).pathname.replace(/\/$/, '') === '/404') return true; } catch {}
   return false;

@@ -1,0 +1,47 @@
+diff --git a/site/src/pages/index.astro b/site/src/pages/index.astro
+index c223ba9..11b88d3 100644
+--- a/site/src/pages/index.astro
++++ b/site/src/pages/index.astro
+@@ -150,13 +150,17 @@ const nextNum = () => String(++secCounter).padStart(2, '0');
+         </div>
+         <div class="essay-cols">
+           {moreStories.map((s) => (
+-            <a href={`/notes/${s.slug}`} class="essay-col">
+-              <StoryArt story={s} patternName={s.pattern_name} patternCategory={s.pattern_category} size="card" class="ec-art" />
+-              <p class="ec-meta mono">{(KIND_LABELS[s.kind] ?? s.kind).toUpperCase()} · {noteDate(s.published_at)}</p>
+-              <h3 class="ec-title">{s.title}</h3>
+-              {s.dek && <p class="ec-dek">{s.dek}</p>}
+-              <span class="pattern-ref mono"><span class="ref-arrow">→</span> {s.pattern_name.toUpperCase()}</span>
+-            </a>
++            <article class="essay-col">
++              <a href={`/notes/${s.slug}`} class="ec-link">
++                <StoryArt story={s} patternName={s.pattern_name} patternCategory={s.pattern_category} size="card" class="ec-art" />
++                <p class="ec-meta mono">{(KIND_LABELS[s.kind] ?? s.kind).toUpperCase()} · {noteDate(s.published_at)}</p>
++                <h3 class="ec-title">{s.title}</h3>
++                {s.dek && <p class="ec-dek">{s.dek}</p>}
++              </a>
++              {/* A real link to the pattern, like the lead essay's. It was a span inside the card
++                  link, so a tap opened the essay and the ref read as dead (2026-09-12). */}
++              <a href={`/patterns/${s.pattern_slug}`} class="pattern-ref mono"><span class="ref-arrow">→</span> {s.pattern_name.toUpperCase()}</a>
++            </article>
+           ))}
+         </div>
+       </section>
+@@ -511,6 +515,17 @@ const nextNum = () => String(++secCounter).padStart(2, '0');
+ 
+   .essay-col:hover { transform: translateY(-4px); text-decoration: none; }
+ 
++  /* The essay link fills the card above the pattern ref */
++  .ec-link {
++    flex: 1;
++    display: flex;
++    flex-direction: column;
++    gap: 0.6rem;
++    color: inherit;
++    text-decoration: none;
++  }
++  .ec-link:hover { text-decoration: none; }
++
+   /* Rule thickens violet on hover — same edge language as the notes stream */
+   .essay-col::before {
+     content: '';

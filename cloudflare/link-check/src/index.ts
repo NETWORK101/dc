@@ -23,6 +23,7 @@ export interface Env {
   BATCH: string;
   CHECK_EXTERNALS: string;
   IGNORE: string;
+  ALLOW_403_HOSTS?: string;
   ADMIN_KEY?: string;
   SLACK_WEBHOOK_URL?: string;
 }
@@ -61,6 +62,7 @@ export async function step(env: Env): Promise<{ sweep: Sweep; finished: boolean 
   const batch = Math.max(1, Number(env.BATCH) || 40);
   const ignore = (env.IGNORE || '').split(',').map((s) => s.trim()).filter(Boolean);
   const checkExternals = (env.CHECK_EXTERNALS || 'true') !== 'false';
+  const allow403 = (env.ALLOW_403_HOSTS || '').split(',').map((s) => s.trim()).filter(Boolean);
 
   let sweep = (await env.STATE.get<Sweep>(SWEEP_KEY, 'json')) ?? newSweep(base);
   if (sweep.finishedAt) {
@@ -77,7 +79,7 @@ export async function step(env: Env): Promise<{ sweep: Sweep; finished: boolean 
     if (!internal && (res.status === 405 || res.status === 403 || res.status === 0)) res = await probe(url, 'GET');
     sweep.seen[url] = res.status; sweep.checked++;
     if (internal) sweep.internal++; else sweep.external++;
-    if (isBroken(res.status, res.final)) sweep.broken.push({ url, status: res.status, final: res.final !== url ? res.final : null, from: (sweep.from[url] ?? []).slice(0, 5) });
+    if (isBroken(res.status, internal ? res.final : url, allow403)) sweep.broken.push({ url, status: res.status, final: res.final !== url ? res.final : null, from: (sweep.from[url] ?? []).slice(0, 5) });
     if (internal && res.status === 200 && res.body) {
       for (const { href } of extractLinks(res.body)) {
         const n = normalizeHref(href, url);

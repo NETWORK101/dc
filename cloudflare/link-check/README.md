@@ -54,6 +54,7 @@ curl -s https://link-check.<account>.workers.dev/report.md
 | `BATCH` | `40` | URLs fetched per tick |
 | `CHECK_EXTERNALS` | `true` | HEAD-check off-site links |
 | `IGNORE` | `/api/,/storybook/iframe.html` | Path prefixes never crawled (POST-only endpoints, embeds) |
+| `ALLOW_403_HOSTS` | `chatgpt.com,claude.ai` | Off-site hosts whose 403 is a bot block, not a breakage |
 
 ## Tests
 
