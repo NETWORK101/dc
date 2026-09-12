@@ -1,0 +1,50 @@
+# Crawl agentsandhumans.ai and report every link that does not resolve.
+# Runs daily and on demand. The report is printed in the job log and kept as an artifact.
+name: Link check
+
+on:
+  workflow_dispatch:
+    inputs:
+      base:
+        description: Site to crawl
+        default: https://agentsandhumans.ai
+      externals:
+        description: Also check off-site links
+        type: boolean
+        default: true
+  schedule:
+    - cron: '17 6 * * *'
+
+permissions:
+  contents: read
+
+jobs:
+  crawl:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Crawl
+        run: |
+          python3 tools/crawl-links.py "${{ github.event.inputs.base || 'https://agentsandhumans.ai' }}" \
+            --out link-report.json --max 3000 --delay 0.2 \
+            ${{ (github.event.inputs.externals == 'true' || github.event_name == 'schedule') && '--externals' || '' }}
+      - name: Report
+        if: always()
+        run: |
+          echo '## Link check' >> "$GITHUB_STEP_SUMMARY"
+          python3 - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json; r = json.load(open('link-report.json'))
+          print(f"Crawled {r['crawled']} internal URLs on {r['base']}. Broken internal: {r['broken_internal']}. External links: {r['externals']['count']} ({'checked' if r['externals']['checked'] else 'not checked'}), broken: {len(r['externals']['broken'])}.\n")
+          if r['broken']:
+              print('| status | url | linked from |\n|---|---|---|')
+              for b in r['broken']: print(f"| {b['status']} | {b['url']} | {'<br>'.join(b['linked_from'][:3])} |")
+          if r['externals']['broken']:
+              print('\n| status | external url | linked from |\n|---|---|---|')
+              for b in r['externals']['broken']: print(f"| {b['status']} | {b['url']} | {'<br>'.join(b['linked_from'][:2])} |")
+          PY
+          cat "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: link-report
+          path: link-report.json
