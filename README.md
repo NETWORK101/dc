@@ -12,6 +12,7 @@ and nothing ships until the gate is satisfied.
 | Path | What it is |
 |---|---|
 | `index.html` | The Phase 0 interactive prototype: suite matrix, three-pane run review, the bench with a castable verdict, variant taxonomy, filterable risk register, workflow, and roadmap. Single file, no build step, sample data only. |
+| `docs/agentic-evals.md` | Essay on why agentic evals differ from deterministic automation tests, an eval set of task prompts for the nine most common enterprise agent use cases, and the MVP definition. |
 | `docs/eval-experience-plan.md` | The detailed plan: positioning, personas, core concepts, the full variant taxonomy, the risk and concern register, the experience spec, architecture, rubrics, metrics, roadmap, and open questions. |
 
 ## Run it
