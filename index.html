@@ -747,30 +747,31 @@ footer{border-top:1px solid var(--line); padding-block:28px 40px; display:flex; 
       <p class="eyebrow">Essay</p>
       <h2>Agentic evals are not automation tests</h2>
     </div>
-    <p>Why an agent needs a different kind of test than a Flow, a script, or a pipeline. Below the essay: a ready-to-run eval set of task prompts for the nine most common enterprise agent use cases, and the smallest MVP that would change how a team ships.</p>
+    <p>Flow tests won't catch what an agent gets wrong. What has to change, nine prompts you can run this week, and the smallest MVP worth building.</p>
   </div>
 
   <div class="essay">
     <div class="essay-body">
-      <h3>Automation was tested by equality</h3>
-      <p class="drop">For thirty years, enterprise automation has meant a graph. A Flow, a workflow rule, an RPA script, a CI pipeline: nodes and edges that the same input walks the same way every time. Testing such a thing is a solved problem. Pick an input, assert the output, and count branches for coverage. When Salesforce ships Visual Flow Diff and Test Mode, it is bringing Flow up to the standard code reached decades ago: show me the change, let me save a scenario, let me run it again. Deterministic systems earn deterministic tests.</p>
-      <p>An agent is not a graph. It is a policy. Given a task, a set of tools, and a context window, it chooses a next action, observes the result, and chooses again until it decides it is done. Run it twice on the same input and you get two trajectories. Usually they end in the same place. Sometimes one takes a step the other did not, and that step is the whole story.</p>
+      <p class="drop">Flow got a diff and a test mode this release. Good. It needed both, and the Test Mode ladder (debug by hand, save the scenario, turn it into a test) is the right shape. But I keep watching teams point that same toolkit at agents and assume it covers them. It doesn't. An agent fails in ways a Flow can't, and the tests that catch a broken Flow will wave a broken agent straight through.</p>
+      <p>The difference in one line: a Flow is a graph, an agent is a policy.</p>
+      <p>A graph walks the same path every time. Give it an input, assert the output, count branches for coverage. That's why deterministic testing works, and has since before any of us wrote Apex.</p>
+      <p>A policy picks the next action, looks at what happened, picks again. Run it twice on the same case and you get two trajectories. They usually end in the same place. Sometimes one takes a step the other didn't, and that step is the thing you needed to know about.</p>
 
-      <h3>Three things change</h3>
-      <p><b>The unit of test is the trajectory, not the output.</b> A Flow test asserts a field value. An agent can produce the right value by reading the record, by guessing, or by writing to the wrong record first and then the right one. All three pass an output assertion. Only one is acceptable. An agentic eval captures every tool call and its target, and judges the path.</p>
-      <p><b>Pass or fail is a judgement, not an assertion.</b> "Is this reply in our voice?" "Did the agent flag what it could not do?" "Is this layout acceptable in German?" These are rubric items with evidence, scored by a grader that can read and, where it matters, confirmed by a person. The deterministic instinct is to reduce everything to a boolean. The agentic discipline is to keep the boolean for what is truly boolean, such as a write outside scope or a token that does not exist, and to make every other judgement explicit, versioned, and attributable.</p>
-      <p><b>The failure that matters is an action, not a value.</b> A wrong value in a deterministic system is a bug you find in a report. A wrong action by an agent is a write to a system of record: a library frame overwritten, a case closed, a customer emailed, a PR merged. The severity model is inverted from unit testing. A wrong answer is medium. An out-of-scope write is critical, even when the answer was right.</p>
+      <h3>So three things change</h3>
+      <p><b>The unit of test is the trajectory.</b> A Flow test checks a field value. An agent can land the right value by reading the record, or by writing to the wrong record first and the right one second. Both pass an output assertion. One is acceptable. If you didn't capture every tool call and its target, you can't tell them apart.</p>
+      <p><b>Pass or fail is a judgement.</b> "Is this reply in our voice." "Does the German layout hold at 40 line items." Neither reduces to a boolean without losing the point. Keep booleans for what's actually boolean: wrote outside its scope, used a token that doesn't exist, sent something it was told to draft. Everything else is a rubric item with an evidence quote, scored by a judge that can read and confirmed by a person when the stakes are real.</p>
+      <p><b>The failure that matters is an action.</b> A wrong value in a Flow shows up in a report. A wrong action by an agent is a write to a system of record. Library frame overwritten. Case closed. Customer emailed. PR merged. Severity is upside down from unit testing: a wrong answer is medium, an out-of-scope write is critical even when the answer was right.</p>
 
-      <h3>Two things that feel like noise and are signal</h3>
-      <p><b>Flakiness.</b> In a deterministic suite a flaky test is broken infrastructure. In an agentic eval, a scenario that passes on three seeds and fails on the fourth is telling you the true pass rate of your agent on that task. You do not quarantine it. You run more seeds, compute a flake score, and decide whether that rate is acceptable for that use case. Ninety percent is fine for drafting a reply a person will read. It is not fine for closing a case.</p>
-      <p><b>The agent's own report.</b> Every agent ends with a summary of what it did. It is the first thing a busy reviewer reads and the last thing they should trust. Comparing the self-report to the captured trajectory is the single best detector of fabricated completion, and it only exists if you captured the trajectory.</p>
+      <h3>Two things will look like noise. They aren't.</h3>
+      <p><b>Flaky tests.</b> In CI a flaky test means broken infra and you quarantine it. In an agentic eval, a scenario that passes on three seeds and fails on the fourth is telling you the real pass rate. Run more seeds. Compute the flake score. Then decide whether 90% is fine for that task. It is for drafting a reply a human reads before sending. It isn't for closing a case.</p>
+      <p><b>The agent's own summary.</b> Every run ends with something like "Done, all strings fit." That's the first thing a tired reviewer reads and the last thing they should trust. Compare it to the trace. In the sample run above, the trace shows a truncated label and a write to the source frame, and the summary mentions neither. Self-report versus trace is the best fabricated-completion detector I know of, and it only exists if you captured the trace.</p>
 
-      <h3>Why this matters now</h3>
-      <p>Prompt changes ship daily. Model upgrades arrive under you, on the vendor's schedule, and change behaviour without changing a line of your code. Tool policies widen as teams get comfortable. Each of those is a release of an agent that acts on your systems of record, and most organisations ship them with a demo and a vibe check.</p>
-      <p>Chromatic taught UI teams that a visual change is not a bug to find later but a diff to review before merge. The same move is available for agents: capture every run, diff it against an approved baseline, put the drift in front of a bench of agent and human evaluators, and gate the release on their verdict. The eval is not a benchmark score in a slide. It is the review gate.</p>
+      <h3>Why now</h3>
+      <p>Prompt changes ship daily. Model upgrades land on the vendor's schedule and change behaviour without touching your code. And tool policies only ever get wider. Each of those is a release of something that writes to your CRM or your Figma library, and most teams ship it with a demo and a vibe check.</p>
+      <p>Chromatic fixed this for UI by turning a visual change into a diff you review before merge instead of a bug you find after. Same move works here. Capture every run, diff it against an approved baseline, put the drift in front of a bench of agent and human evaluators, gate the release on the verdict. The eval is the review gate, not a benchmark number on a slide.</p>
 
       <h3>What stays human</h3>
-      <p>Agents can run the matrix, apply the rules, score the rubrics, and rank the drift. They cannot be the accountable party. Every gate pass names a person. Every critical override carries a reason. Human coverage is reported as a ratio, so the day the humans stop looking shows up on a chart and not in an incident review. Agentic evals are a division of labour, not a replacement for it.</p>
+      <p>Accountability. Agents can run the matrix, apply the rules, score the rubric, rank the drift. They can't be the name on the gate pass. Every override on critical drift carries a reason. Human coverage gets reported as a ratio, so the day people stop looking shows up on a chart and not in a postmortem.</p>
     </div>
 
     <aside class="contrast" aria-label="Deterministic automation versus agents">
@@ -798,7 +799,7 @@ footer{border-top:1px solid var(--line); padding-block:28px 40px; display:flex; 
       <p class="eyebrow">Eval set</p>
       <h2>Nine task prompts for the most common use cases</h2>
     </div>
-    <p>Each card is a prompt an agent under test would receive, the fixture it runs against, the graders, and the top risk. Prompts are written to be pasted into a runner as-is. Rule graders are deterministic. Rubric judges run on a different model family and must quote evidence. Humans are routed reviewers.</p>
+    <p>Nine prompts you can paste into a runner as they are. Each card has the fixture, what good looks like, who grades it, and the one risk I'd watch first. Rule graders are deterministic. Rubric judges run on a different model family and have to quote their evidence.</p>
   </div>
   <ol class="evalset">
     <li class="eval">
@@ -905,7 +906,7 @@ footer{border-top:1px solid var(--line); padding-block:28px 40px; display:flex; 
   <div class="mvp">
     <div>
       <p class="eyebrow">MVP</p>
-      <h3>The smallest version that changes how a team ships</h3>
+      <h3>The smallest version worth building</h3>
       <div class="table-scroll">
       <table class="scope">
         <thead><tr><th>Piece</th><th>In the MVP</th><th>Not yet</th></tr></thead>
@@ -927,9 +928,9 @@ footer{border-top:1px solid var(--line); padding-block:28px 40px; display:flex; 
     <div>
       <h3>Four weeks</h3>
       <ol class="weeks">
-        <li><span><b>Capture.</b> Run the five scenarios by hand through a runner that records every tool call in an isolated fixture. Nothing is graded. Output: fifteen captured runs and the first honest look at what the agent does.</span></li>
+        <li><span><b>Capture.</b> Run the five scenarios by hand through a runner that records every tool call in an isolated fixture. Nothing is graded. You end up with fifteen captured runs and the first honest look at what the agent actually does.</span></li>
         <li><span><b>Graders.</b> Add the four rule graders and the rubric judge. Accept the fifteen runs by hand to create baselines. Make a deliberately bad prompt change and confirm the graders catch it.</span></li>
-        <li><span><b>Review.</b> Put drift in front of two humans with the three-pane view. Measure time-to-verdict. Adjust the rubric until inter-rater agreement is tolerable.</span></li>
+        <li><span><b>Review.</b> Put drift in front of two humans with the three-pane view. Measure time-to-verdict. Fix the rubric until the two of them mostly agree.</span></li>
         <li><span><b>Gate.</b> Wire the status check. Ship the next real prompt change through it. Report the coverage ratio.</span></li>
       </ol>
       <div class="done">
