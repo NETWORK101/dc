@@ -68,7 +68,7 @@ verdict. The eval is the review gate, not a benchmark number on a slide.
 
 Accountability. Agents can run the matrix, apply the rules, score the rubric, rank the drift. They
 can't be the name on the gate pass. Every override on critical drift carries a reason. Human
-coverage gets reported as a ratio, so the day people stop looking shows up on a chart and not in a
+coverage gets reported as a ratio, so the day humans stop looking shows up on a chart and not in a
 postmortem.
 
 ---

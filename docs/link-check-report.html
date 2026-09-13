@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Link check · agentsandhumans.ai · 2026-09-12</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{--bg:#F3F4F0;--surface:#FBFBF9;--surface-2:#F0F1EC;--line:#D4D8D2;--line-2:#B9BFB8;--ink:#171A21;--ink-2:#4A5060;--ink-3:#7A8194;--accent:#2B4CFF;--mono-bg:#EDEFE9;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12151C;--surface:#1A1E27;--surface-2:#20252F;--line:#2B303C;--line-2:#3C4353;--ink:#E8EAF0;--ink-2:#AAB0C0;--ink-3:#767D90;--accent:#6D85FF;--mono-bg:#141820;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#12151C;--surface:#1A1E27;--surface-2:#20252F;--line:#2B303C;--line-2:#3C4353;--ink:#E8EAF0;--ink-2:#AAB0C0;--ink-3:#767D90;--accent:#6D85FF;--mono-bg:#141820;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans","Segoe UI",Helvetica,Arial,sans-serif;font-size:16px;line-height:1.6;padding-inline:clamp(16px,4vw,40px);padding-block:0}
+.wrap{max-width:860px;margin-inline:auto}
+.mast{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-block:18px;border-bottom:1px solid var(--line);margin-bottom:40px}
+.brand{display:flex;align-items:baseline;gap:12px;text-decoration:none;color:var(--ink)}
+.brand .name{font-family:"Bricolage Grotesque","Helvetica Neue",Arial,sans-serif;font-weight:700;font-size:20px;letter-spacing:-.02em}
+.brand .by{font-size:12px;color:var(--ink-3)}
+.mast a.back{font-size:13px;color:var(--ink-2);text-decoration:none;padding:6px 10px;border:1px solid var(--line-2);border-radius:6px}
+h1,h2,h3,h4{font-family:"Bricolage Grotesque","Helvetica Neue",Arial,sans-serif;font-weight:600;line-height:1.15;letter-spacing:-.01em;text-wrap:balance;margin:0}
+h1{font-size:clamp(30px,4.5vw,44px);font-weight:500;margin-bottom:12px}
+h2{font-size:26px;margin:48px 0 14px;padding-top:24px;border-top:1px solid var(--line)}
+h3{font-size:19px;margin:28px 0 10px}
+p{margin:0 0 14px;max-width:70ch}
+h1+p em{color:var(--ink-2)}
+a{color:var(--accent)}
+ul,ol{padding-left:22px;margin:0 0 14px}
+li{margin-bottom:6px}
+code{font-family:"IBM Plex Mono",Consolas,monospace;font-size:.9em;background:var(--mono-bg);padding:1px 5px;border-radius:4px}
+pre{background:var(--mono-bg);padding:12px 14px;border-radius:6px;overflow-x:auto;font-size:13px;line-height:1.5;margin:0 0 16px}
+pre code{background:none;padding:0;font-size:inherit}
+.tbl{overflow-x:auto;margin:0 0 18px}
+table{border-collapse:collapse;font-size:14px;width:100%}
+th{text-align:left;font-weight:600;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-2);padding:8px 10px;border-bottom:2px solid var(--line-2);white-space:nowrap}
+td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+hr{border:0;border-top:1px solid var(--line);margin:32px 0}
+blockquote{margin:0 0 14px;padding:8px 14px;border-left:3px solid var(--line-2);color:var(--ink-2)}
+footer{border-top:1px solid var(--line);margin-top:56px;padding-block:24px 40px;font-size:13px;color:var(--ink-3)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="mast">
+  <a class="brand" href="https://agentsandhumans.ai"><span class="name">The Future of Work</span><span class="by">by agentsandhumans.ai</span></a>
+  <a class="back" href="../index.html">Back to the prototype</a>
+</header>
+<main>
+<h1>Link check · agentsandhumans.ai · 2026-09-12</h1>
+<p>Crawled from GitHub Actions (run 34719265551 on NETWORK101/dc) because the Claude sandbox cannot reach the site. Same-origin crawl from <code>/</code>, every off-site link HEAD-checked with a GET fallback.</p>
+<div class="tbl"><table><thead><tr><th></th><th></th></tr></thead><tbody><tr><td>Internal URLs crawled</td><td>162</td></tr><tr><td>Internal broken</td><td>0 real (2 false positives, below)</td></tr><tr><td>External links</td><td>173</td></tr><tr><td>External failing</td><td>73, of which 56 are bot-blocked by design (below)</td></tr></tbody></table></div>
+<h2>The two links reported as dead</h2>
+<p><code>→ COMPARISON VIEW</code> and <code>→ OFF-BRIEF ALERT</code> on the homepage essay cards. Both pattern pages are live and return 200:</p>
+<ul><li>https://agentsandhumans.ai/patterns/eval-comparison-view</li><li>https://agentsandhumans.ai/patterns/off-brief-alert</li></ul>
+<p>The ref on the essay cards is not a link. In <code>site/src/pages/index.astro</code> the whole card is one <code>&lt;a href="/notes/&lt;slug&gt;"&gt;</code>, and the pattern ref inside it is a <code>&lt;span class="pattern-ref"&gt;</code> styled to look like the lead essay's real <code>&lt;a class="pattern-ref"&gt;</code>. A tap on the ref opens the essay, not the pattern. On a phone the card fills the screen, so it reads as the lead essay and the ref reads as a dead link. Fix: make the card an <code>&lt;article&gt;</code>, keep the essay link on the art, meta, title and dek, and make the ref its own <code>&lt;a href="/patterns/&lt;slug&gt;"&gt;</code>.</p>
+<h2>Internal false positives</h2>
+<div class="tbl"><table><thead><tr><th>URL</th><th>Why it is not a bug</th></tr></thead><tbody><tr><td><code>/api/subscribe</code></td><td>Form action, POST only. A GET returns 404 by design. Excluded in the Worker via <code>IGNORE</code>.</td></tr><tr><td><code>/cdn-cgi/l/email-protection</code></td><td>Cloudflare's email obfuscation rewrites <code>mailto:</code> links to this path. It works in a browser.</td></tr></tbody></table></div>
+<h2>External links that fail</h2>
+<p><strong>Bot-blocked, not broken (56).</strong> Every pattern page carries two "ask an assistant" links, <code>https://chatgpt.com/?q=…</code> and <code>https://claude.ai/new?q=…</code>. Both hosts return 403 to any non-browser client. They work for a person. The Worker treats 403 from these two hosts as fine.</p>
+<p><strong>Paywalled or bot-blocked news (6).</strong> openai.com, axios.com, forbes.com, reuters.com and help.openai.com return 401 or 403 to crawlers. Worth a manual click but almost certainly fine.</p>
+<p><strong>Real 404s to fix in content (11).</strong></p>
+<div class="tbl"><table><thead><tr><th>Status</th><th>URL</th><th>Linked from</th></tr></thead><tbody><tr><td>404</td><td>https://freeplay.ai/blog/accelerate-ai-product-development-with-freeplay-s-new-eval-creation-alignment-tools</td><td>/note/agree-or-disagree-with-the-judge-ten-at-a-time, /patterns/eval-case-drilldown</td></tr><tr><td>404</td><td>https://huggingface.co/blog/agent-intrusion-timeline</td><td>/note/the-alert-fired-and-did-not-wake-anyone, /patterns/emergency-stop</td></tr><tr><td>404</td><td>https://metr.org/blog/hugging-face-investigation/</td><td>/note/independent-investigators-found-a-swarm-that-organized-itself, /patterns/agent-identity</td></tr><tr><td>404</td><td>https://techcrunch.com/2026/09/04/openai-rogue-agents-no-process/</td><td>/note/the-agents-keep-escaping-and-there-is-no-standing-process, /patterns/emergency-stop</td></tr><tr><td>404</td><td>https://www.anthropic.com/news/claude-code</td><td>/note/claude-code-multi-file-editing, /patterns/recovery</td></tr><tr><td>404</td><td>https://www.linkedin.com/in/danielclarkux/</td><td>/about</td></tr><tr><td>404</td><td>https://icons.duckduckgo.com/ip3/engineering.atspotify.com.ico</td><td>favicon for a Spotify engineering source</td></tr><tr><td>404</td><td>https://icons.duckduckgo.com/ip3/freeplay.ai.ico</td><td>favicon for Freeplay</td></tr><tr><td>404</td><td>https://icons.duckduckgo.com/ip3/time.com.ico</td><td>favicon for Time</td></tr></tbody></table></div>
+<p>The five article URLs are source links in field notes. Each needs the corrected URL from the original source, or the note's source link removed. The LinkedIn URL on the About page may be a bot block rather than a wrong URL; LinkedIn returns 404 to unauthenticated crawlers for some profiles. The three favicon URLs come from the source-icon helper and fail quietly; the site should fall back to a neutral glyph when DuckDuckGo has no icon.</p>
+<h2>How to re-run</h2>
+<ul><li>GitHub Actions: the <code>Link check</code> workflow in NETWORK101/dc runs daily at 06:17 UTC and on demand (Actions tab, Run workflow). The report is the job summary and the <code>link-report</code> artifact.</li><li>Cloudflare: <code>cloudflare/link-check</code> is a Worker that runs the same crawl in batches on a cron, keeps the report in KV, and posts new breakages to Slack. See its README to deploy.</li><li>Locally: <code>python3 tools/crawl-links.py https://agentsandhumans.ai --externals</code>.</li></ul>
+</main>
+<footer>The Future of Work is a Phase 0 prototype from agentsandhumans.ai. Sample data throughout.</footer>
+</div>
+</body>
+</html>
