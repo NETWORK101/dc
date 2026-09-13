@@ -34,7 +34,7 @@ for i in range(0, len(slugs), 15):
         except Exception:
             print('INV ' + json.dumps({'kind': 'note', 'slug': slug, 'error': text[:200]})); continue
         d.pop('prose', None); d.pop('_source', None)
-        print('INV ' + json.dumps({'kind': 'note', 'slug': slug, **{k: d.get(k) for k in ('id', 'title', 'editorial_note', 'summary', 'source_name', 'source_url', 'observed_at', 'patterns')}}, ensure_ascii=False))
+        print('INV ' + json.dumps({'kind': 'note', 'slug': slug, 'raw': d}, ensure_ascii=False))
 
 essays = [x for x in json.loads(get('/api/search.json')) if x.get('kind') == 'essay']
 print(f'# {len(essays)} essays', file=sys.stderr)
