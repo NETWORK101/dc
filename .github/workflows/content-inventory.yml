@@ -1,0 +1,16 @@
+# Print every live field note and essay with its fields, for editorial passes run from a sandbox
+# that cannot reach the site. Output is in the job log, one JSON line per item.
+name: Content inventory
+on:
+  workflow_dispatch:
+    inputs:
+      base:
+        default: https://agentsandhumans.ai
+permissions:
+  contents: read
+jobs:
+  inventory:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 tools/content-inventory.py "${{ github.event.inputs.base || 'https://agentsandhumans.ai' }}"
