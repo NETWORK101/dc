@@ -1,0 +1,19 @@
+# Fetch one URL from a runner that can reach the public internet and print the response headers,
+# size and checksum. For checking what the live edge serves when the sandbox cannot reach it.
+name: Fetch URL
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        description: URL to fetch
+        required: true
+permissions:
+  contents: read
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "== headers"; curl -sSI -A "agentsandhumans-check/1.0" "${{ github.event.inputs.url }}" | tr -d '\r'
+          echo "== body"; curl -sS -A "agentsandhumans-check/1.0" -o body.bin "${{ github.event.inputs.url }}"
+          echo "bytes: $(stat -c %s body.bin)  md5: $(md5sum body.bin | cut -d' ' -f1)"
