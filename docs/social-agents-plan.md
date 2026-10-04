@@ -20,7 +20,7 @@ The loop runs in this order: **Listen, then Draft, then a person approves, then 
 
 ## Rules the agents never break
 
-- **A person approves every public post and reply.** This uses the existing Slack GO / EDIT / SKIP buttons. Agents only draft.
+- **A person approves every public post and reply.** This uses the existing Slack GO / EDIT / SKIP buttons, and DC and Tom can both approve. Agents only draft.
 - **No auto-DMs, no fake accounts, no mass-following, no buying engagement.** These get accounts banned and hurt trust.
 - **Follow each platform's rules.** That means each subreddit's self-promotion rules, X's label for automated accounts, and the rate limits already in the propagators.
 - **Reply to help first.** Most replies should carry no link at all.
@@ -54,7 +54,7 @@ The loop runs in this order: **Listen, then Draft, then a person approves, then 
 
 ## Decisions needed from DC
 
-1. Who taps GO in Slack each day: you, Tom, or both?
+1. ~~Who taps GO in Slack each day?~~ **Decided: both DC and Tom.** Either one can approve, and the first tap counts, so nothing gets posted twice. By default Tom does the daily pass and DC covers when Tom is away. Both read the Monday report.
 2. Which channels to start with? The suggestion is X and dev.to first, then LinkedIn, then Reddit.
 3. Should the sign-up form ask for a role (designer, developer, product manager), so the report can show which audience is growing?
 4. Can the Analyst get read access to Search Console and the site's analytics?
