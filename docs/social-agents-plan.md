@@ -36,11 +36,11 @@ The loop runs in this order: **Listen, then Draft, then a person approves, then 
 **Week 2: publish and measure**
 4. Turn on the **Publisher** for approved items.
 5. Turn on the **Analyst** and read the first Monday report.
-6. Pick the one channel that brought the most sign-ups and double down on it.
+6. Compare X with dev.to and put more effort into whichever brought more sign-ups.
 
 **Week 3 onward: let it learn**
 7. Turn on the **Optimizer**. Every Monday, read its suggestions and approve or reject them.
-8. After 6 weeks, cut any channel that brought no sign-ups.
+8. After 6 weeks, review the results. If X or dev.to brought no sign-ups, change the approach. If both are working, add LinkedIn next.
 
 ## What to measure
 
@@ -55,6 +55,6 @@ The loop runs in this order: **Listen, then Draft, then a person approves, then 
 ## Decisions needed from DC
 
 1. ~~Who taps GO in Slack each day?~~ **Decided: both DC and Tom.** Either one can approve, and the first tap counts, so nothing gets posted twice. By default Tom does the daily pass and DC covers when Tom is away. Both read the Monday report.
-2. Which channels to start with? The suggestion is X and dev.to first, then LinkedIn, then Reddit.
-3. Should the sign-up form ask for a role (designer, developer, product manager), so the report can show which audience is growing?
+2. ~~Which channels to start with?~~ **Decided: X and dev.to only.** LinkedIn and Reddit wait until those two are bringing sign-ups, which means no earlier than week 6. Until then the Listener searches only X and dev.to, and the Repurposer drafts only X threads and dev.to articles.
+3. ~~Should the sign-up form ask for a role?~~ **Decided: yes.** The subscribe form (`/api/subscribe` and its three capture points in the site repo) gets one optional dropdown: Designer, Developer, Product manager, Other. The role is saved with the email and its source tag, so the Monday report can show sign-ups by audience and by channel. This is a small PR in NETWORK101/future-of-work-main and should ship before week 2.
 4. Can the Analyst get read access to Search Console and the site's analytics?
