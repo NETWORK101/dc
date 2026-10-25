@@ -164,6 +164,48 @@ Cloudflare covers most of the backbone. You still need a code host, model provid
 
 **Rough monthly total for the PoC:** about $30 to $100 for infrastructure. Model spend is extra and dominates. For example, 300 tickets at $1 to $5 each is $300 to $1,500. Treat all of these as guesses until Phase 0 gives you real numbers.
 
+## Why Cloudflare, and when to switch
+
+Investors and buyers will ask why the factory doesn't run on AWS, Azure or Google Cloud. The short answer is that those clouds do a different job in this plan, and for a PoC Cloudflare is the fastest way to run the factory itself.
+
+**Bedrock isn't the alternative to Cloudflare.** Amazon Bedrock, Microsoft Foundry and Google's Vertex AI host the models. They would replace Anthropic in the provider table, not Cloudflare. Cloudflare runs the factory: the scheduler, the sandboxes, the gateway, the private link and the dashboard. You can mix the two. AI Gateway can send Claude Code's calls to Bedrock or Vertex, with the credentials stored in the gateway.
+
+**Why Cloudflare runs the factory**
+
+1. **It's the fastest path to a working loop.** Cloudflare publishes a guide that is almost exactly Phase 1: Claude Code runs on a GitHub repo in a sandbox, the API keys never enter the sandbox, and the sandbox can reach only the gateway and GitHub. On a hyperscaler, the same loop means setting up access roles, a container registry, network rules, a sandbox service and a workflow service before the first PR.
+2. **It's one account and one bill, starting at $5 a month.** Per-ticket spend limits are built into AI Gateway. On a hyperscaler you build that or run it yourself.
+3. **You pay for work, not waiting.** Agents spend most of a ticket waiting on the model, and Sandboxes bill CPU only when it's in use. AWS's AgentCore Runtime does this too. Plain container services such as Fargate bill for the whole time a container runs.
+4. **It doesn't sell models.** Switching between Anthropic, Hermes through OpenRouter, Bedrock and Vertex is a gateway setting, which supports the "any model" pitch.
+5. **You already run it.** The link-check Worker in this repo runs on Cloudflare.
+
+**Why the Anthropic API rather than Bedrock for the models.** New features reach Anthropic's own API first. Bedrock doesn't offer several features the plan uses today:
+
+- Message Batches, for the half-price triage and Scout runs
+- Managed Agents
+- Task budgets
+- Server-side fallbacks
+- The web search, web fetch and code execution tools
+
+Vertex AI and Foundry also lack Batches and Managed Agents. Claude Code itself runs on all three, because its tools run in your sandbox. If you want to pay through AWS without losing features, use Claude Platform on AWS: Anthropic operates it and ships features there the same day. Google Cloud also offers a version of Claude that Anthropic manages.
+
+**When a hyperscaler is the right call**
+
+- **Startup credits.** AWS, Google and Microsoft run startup programs whose credits can cover a lot of compute. A large grant is a fair reason to build there. Check first whether the credits cover Claude on that platform.
+- **Enterprise customers.** Their code can't leave their cloud, their security team has already approved that cloud, and buying Claude through its marketplace counts toward the spend they've committed to. This is the bring-your-own-cloud tier.
+- **Running open Hermes weights on your own GPUs.**
+- **Compliance needs,** such as government security standards or data residency, that the customer's cloud account already meets.
+
+**The same parts on each cloud**
+
+| Factory part | Cloudflare (this plan) | AWS | Azure | Google Cloud |
+|---|---|---|---|---|
+| Scheduling and ticket state | Workers + Workflows | Lambda + Step Functions + EventBridge Scheduler | Durable Functions + Logic Apps | Cloud Run functions + Workflows + Cloud Scheduler |
+| One sandbox per ticket | Sandboxes (generally available since April 2026) | Bedrock AgentCore Runtime: a microVM per session, up to 8 hours, CPU billed only when in use | Container Apps dynamic sessions | Cloud Run sandboxes (public preview since July 2026) |
+| Claude models | Anthropic API through AI Gateway | Bedrock, or Claude Platform on AWS | Microsoft Foundry | Vertex AI, or the Anthropic-managed option |
+| Private link to the Reach host | Tunnel + Access | VPC + Systems Manager | VNet + Private Link | VPC + Identity-Aware Proxy |
+
+**The plan:** build the PoC on Cloudflare with the Anthropic API, and keep the sandbox and model layers behind adapters. When a design partner asks, add their cloud as a second deployment target: AgentCore, Container Apps or Cloud Run sandboxes, with Claude bought through their marketplace. That gives you a pitch line: it runs on Cloudflare for startups, and inside your own AWS, Azure or Google account for enterprises.
+
 ## Model routing
 
 | Ticket class | Example | Model | Starting cap |
@@ -326,3 +368,7 @@ factory/
 - [Cloudflare: Containers and Sandboxes are generally available](https://developers.cloudflare.com/changelog/post/2026-04-13-containers-sandbox-ga/)
 - [Cloudflare: AI Gateway spend limits](https://developers.cloudflare.com/ai-gateway/features/spend-limits/)
 - [Cloudflare: Workflows](https://developers.cloudflare.com/workflows/)
+- [Cloudflare AI Gateway: Claude Code with Anthropic, Bedrock or Vertex](https://developers.cloudflare.com/ai-gateway/integrations/coding-agents/claude-code/)
+- [AWS: Bedrock AgentCore Runtime](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/agents-tools-runtime.html)
+- [Azure: Container Apps dynamic sessions](https://learn.microsoft.com/azure/container-apps/sessions)
+- [Google Cloud: Cloud Run sandboxes in public preview](https://cloud.google.com/blog/topics/developers-practitioners/google-cloud-run-sandboxes-are-in-public-preview)
