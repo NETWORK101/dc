@@ -158,4 +158,3 @@ Owner, review date:
 - [StepSecurity: Nx compromised with data-stealing malware](https://www.stepsecurity.io/blog/supply-chain-security-alert-popular-nx-build-system-package-compromised-with-data-stealing-malware)
 - [Snyk: malicious MCP server on npm, postmark-mcp](https://snyk.io/blog/malicious-mcp-server-on-npm-postmark-mcp-harvests-emails/)
 - [CSO Online: GitHub AI agent leaks private repositories via prompt injection](https://www.csoonline.com/article/4194448/github-ai-agent-leaks-private-repositories-via-prompt-injection.html)
-- [CSA research note: when a GitHub issue steals CI secrets](https://labs.cloudsecurityalliance.org/research/csa-research-note-ai-coding-agent-ci-prompt-injection-202608/)
