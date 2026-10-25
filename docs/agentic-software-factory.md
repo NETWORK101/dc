@@ -298,7 +298,7 @@ The targets are rough guesses. Replace them with your Phase 0 baseline.
 
 1. Run the factory on your real backlog for at least two weeks and keep the numbers.
 2. Add a second repo in a different stack to show the approach generalizes.
-3. Write a one-page security model covering isolation, secrets, permissions, outside content and the audit trail.
+3. Write a one-page security model covering isolation, secrets, permissions, outside content and the audit trail. Base it on `docs/agent-security-standards.md`.
 4. Record the demo below as a backup video.
 
 ## Scaling past the PoC
